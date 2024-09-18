@@ -30,8 +30,8 @@ curves = [FanCurve((70, 300), (75, 70), (0,80), currenttemp),
 
 
 # TODO: make special fan curve where from activation temp->deactivation temp the fan is set to a fixed speed, presumably min
-# TODO: make optional jurisdiction on each fan curve --> done presumably
-# TODO: pass in anchors and activation temps and possibly jurisdiction as tuples
+
+
 
 onoffflag = False # on/off flag
 
@@ -82,6 +82,12 @@ while True:
 
         print()
         time.sleep(timeinterval)
+
+        for count, i in enumerate(fans):
+            if not i.isfaninorder(targetrpms[count],fandata):
+                fan.changefanmode(0)
+                fan.changefanmode(1)
+                print(f"fan {count} not in order, fixing...")
     
     except KeyboardInterrupt as e:
         print("\nExiting...")
