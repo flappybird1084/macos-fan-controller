@@ -17,8 +17,13 @@ fans = [Fan(2317, 6898, 0),
 currenttemp = fancontroller.gethighestcputemp(fancontroller.getallcontrollerdata()) # do this once for all curve definitions
 # if curves aren't defined with a generally correct current temp they may be at the wrong rpm for a second or two which bothers me
 #fancurve(bottomanchor, topanchor, activationtemp, deactivationtemp, currentemp)
-curves = [FanCurve((70, 100), (75, 70), (0,80), currenttemp),
-          FanCurve((60, 95), (85, 80), (80,200), currenttemp),] # define the curve for each fan, first argument is lowest temp, second is highest, third is lowest rpm, fourth is highest rpm, fifth is the current temp
+curve_old = [FanCurve((70, 100), (75, 70), (0,90), currenttemp),
+          FanCurve((60, 95), (85, 80), (80,200), currenttemp),] 
+
+curves = [FanCurve((70, 300), (75, 70), (0,80), currenttemp),
+          FanCurve((78, 100), (80, 75), (80,90), currenttemp),
+          FanCurve((73, 110), (82, 78), (78, 85), currenttemp),
+          FanCurve((60, 95), (85, 70), (90,200), currenttemp),]  # define the curve for each fan, first argument is lowest temp, second is highest, third is lowest rpm, fourth is highest rpm, fifth is the current temp
 
 # TODO: add a throttling fan curve - use PSTR key and powermetrics -s gpu_power + pmset bullshit to determine whether 
 # gpu is pulling less watts @ high power mode on full utilization, then set fan speed to full blast immediately

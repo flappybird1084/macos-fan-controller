@@ -141,12 +141,16 @@ class FanCurve():
         #example: a = 30, m = 50, c = 40
         # will return 0.5 or 50% fan speed
     
-    def getcurverpm(self):
+    def getcurverpm(self) -> float:
         if self.isActivated:
-            if self.currenttemp>=self.bottomjurisdiction and self.currenttemp<=self.topjurisdiction:
+            #print(f"will calculate rpm: {self.currenttemp >= self.bottomjurisdiction and self.currenttemp <= self.topjurisdiction}")
+            
+            if (self.currenttemp >= self.bottomjurisdiction) and (self.currenttemp <= self.topjurisdiction):
                 return self.standardcurve(self.mintempanchor, self.maxtempanchor, self.currenttemp)
+            else:
+                return 0.0
         else:
-            return 0
+            return 0.0
         
     def getcurverpm_updateall(self, currenttemp):
         self.updatecurrenttemp(currenttemp)
