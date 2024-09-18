@@ -113,11 +113,13 @@ class Fan:
             return 0
         
 class FanCurve():
-    def __init__(self, mintempanchor, maxtempanchor, activationtemp, deactivationtemp, currenttemp, isActivated=False):
-        self.mintempanchor = mintempanchor
-        self.maxtempanchor = maxtempanchor
-        self.activationtemp = activationtemp
-        self.deactivationtemp = deactivationtemp
+    def __init__(self, anchors, activations, jurisdiction, currenttemp, isActivated=False):
+        self.mintempanchor = anchors[0]
+        self.maxtempanchor = anchors[1]
+        self.activationtemp = activations[0]
+        self.deactivationtemp = activations[1]
+        self.bottomjurisdiction = jurisdiction[0]
+        self.topjurisdiction = jurisdiction[1]
         self.currenttemp = currenttemp
         self.isActivated = isActivated
 
@@ -141,7 +143,8 @@ class FanCurve():
     
     def getcurverpm(self):
         if self.isActivated:
-            return self.standardcurve(self.mintempanchor, self.maxtempanchor, self.currenttemp)
+            if self.currenttemp>=self.bottomjurisdiction and self.currenttemp<=self.topjurisdiction:
+                return self.standardcurve(self.mintempanchor, self.maxtempanchor, self.currenttemp)
         else:
             return 0
         

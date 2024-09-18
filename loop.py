@@ -17,15 +17,15 @@ fans = [Fan(2317, 6898, 0),
 currenttemp = fancontroller.gethighestcputemp(fancontroller.getallcontrollerdata()) # do this once for all curve definitions
 # if curves aren't defined with a generally correct current temp they may be at the wrong rpm for a second or two which bothers me
 #fancurve(bottomanchor, topanchor, activationtemp, deactivationtemp, currentemp)
-curves = [FanCurve(70, 100, 75, 70, currenttemp),
-          FanCurve(60, 95, 85, 80, currenttemp),] # define the curve for each fan, first argument is lowest temp, second is highest, third is lowest rpm, fourth is highest rpm, fifth is the current temp
+curves = [FanCurve((70, 100), (75, 70), (0,80), currenttemp),
+          FanCurve((60, 95), (85, 80), (80,200), currenttemp),] # define the curve for each fan, first argument is lowest temp, second is highest, third is lowest rpm, fourth is highest rpm, fifth is the current temp
 
 # TODO: add a throttling fan curve - use PSTR key and powermetrics -s gpu_power + pmset bullshit to determine whether 
 # gpu is pulling less watts @ high power mode on full utilization, then set fan speed to full blast immediately
 
 
 # TODO: make special fan curve where from activation temp->deactivation temp the fan is set to a fixed speed, presumably min
-# TODO: make optional jurisdiction on each fan curve
+# TODO: make optional jurisdiction on each fan curve --> done presumably
 # TODO: pass in anchors and activation temps and possibly jurisdiction as tuples
 
 onoffflag = False # on/off flag
