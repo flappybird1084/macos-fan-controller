@@ -80,15 +80,21 @@ while True:
             fans[count].setfanspeed(i)
             print(f"fan {count} set to rpm {i}")
 
-        print()
+        
         time.sleep(timeinterval)
 
         for count, i in enumerate(fans):
             if not i.isfaninorder(targetrpms[count],fandata):
-                fan.changefanmode(0)
-                fan.changefanmode(1)
+                i.changefanmode(0)
+                i.changefanmode(1)
                 print(f"fan {count} not in order, fixing...")
+            else:
+                print(f"fan {count} all in order!")
+
+        print()
     
+
+
     except KeyboardInterrupt as e:
         print("\nExiting...")
         for fan in fans:
