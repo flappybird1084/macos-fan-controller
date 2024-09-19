@@ -1,0 +1,8 @@
+{
+    "activation_temp": 50,
+    "max_temp": 90,
+    "min_rpm": 1000,
+    "max_rpm": 7000,
+    "equation": "(-1 if current_temp < activation_temp else (max_rpm if current_temp > max_temp else (min_rpm + (max_rpm - min_rpm) * ((current_temp - activation_temp) / (max_temp - activation_temp)))))"
+  }
+  
